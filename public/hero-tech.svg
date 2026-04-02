@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 580 400" fill="none">
+  <defs>
+    <linearGradient id="screenGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#0c1a35"/>
+    </linearGradient>
+    <linearGradient id="monitorGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="glowBlue" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0ea5e9" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#6366f1" stop-opacity="0.1"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <radialGradient id="bgGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0ea5e9" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background glow -->
+  <ellipse cx="290" cy="200" rx="280" ry="190" fill="url(#bgGlow)"/>
+
+  <!-- Monitor body -->
+  <rect x="100" y="60" width="380" height="240" rx="18" fill="url(#monitorGrad)" stroke="#0ea5e9" stroke-width="1.5" stroke-opacity="0.6"/>
+  <!-- Screen bezel -->
+  <rect x="116" y="76" width="348" height="208" rx="10" fill="url(#screenGrad)"/>
+
+  <!-- Screen top bar -->
+  <rect x="116" y="76" width="348" height="24" rx="10" fill="#1e293b"/>
+  <circle cx="132" cy="88" r="5" fill="#ef4444" opacity="0.8"/>
+  <circle cx="148" cy="88" r="5" fill="#f59e0b" opacity="0.8"/>
+  <circle cx="164" cy="88" r="5" fill="#22c55e" opacity="0.8"/>
+  <rect x="200" y="83" width="160" height="10" rx="5" fill="#334155"/>
+
+  <!-- Code lines -->
+  <!-- Line 1: keyword -->
+  <rect x="132" y="116" width="36" height="8" rx="3" fill="#c084fc"/>
+  <rect x="174" y="116" width="60" height="8" rx="3" fill="#67e8f9"/>
+  <rect x="240" y="116" width="8" height="8" rx="2" fill="#f8fafc" opacity="0.6"/>
+  <rect x="254" y="116" width="80" height="8" rx="3" fill="#4ade80"/>
+
+  <!-- Line 2 -->
+  <rect x="148" y="134" width="28" height="8" rx="3" fill="#67e8f9"/>
+  <rect x="182" y="134" width="50" height="8" rx="3" fill="#f8fafc" opacity="0.5"/>
+  <rect x="238" y="134" width="70" height="8" rx="3" fill="#fb923c"/>
+
+  <!-- Line 3 -->
+  <rect x="148" y="152" width="90" height="8" rx="3" fill="#4ade80"/>
+  <rect x="244" y="152" width="40" height="8" rx="3" fill="#f8fafc" opacity="0.4"/>
+
+  <!-- Line 4 -->
+  <rect x="148" y="170" width="44" height="8" rx="3" fill="#c084fc"/>
+  <rect x="198" y="170" width="30" height="8" rx="3" fill="#67e8f9"/>
+  <rect x="234" y="170" width="60" height="8" rx="3" fill="#fbbf24"/>
+
+  <!-- Line 5 -->
+  <rect x="148" y="188" width="110" height="8" rx="3" fill="#f8fafc" opacity="0.35"/>
+
+  <!-- Line 6 -->
+  <rect x="132" y="206" width="8" height="8" rx="2" fill="#f8fafc" opacity="0.6"/>
+
+  <!-- Line 7 -->
+  <rect x="132" y="224" width="36" height="8" rx="3" fill="#c084fc"/>
+  <rect x="174" y="224" width="50" height="8" rx="3" fill="#67e8f9"/>
+  <rect x="230" y="224" width="80" height="8" rx="3" fill="#4ade80"/>
+
+  <!-- Cursor -->
+  <rect x="316" y="224" width="7" height="10" rx="2" fill="#0ea5e9" opacity="0.9" filter="url(#glow)"/>
+
+  <!-- Monitor stand -->
+  <rect x="268" y="300" width="44" height="18" rx="4" fill="#1e293b"/>
+  <rect x="230" y="316" width="120" height="12" rx="6" fill="#1e293b"/>
+
+  <!-- Floating card: Cloud -->
+  <rect x="450" y="72" width="118" height="56" rx="14" fill="#0c1a35" stroke="#0ea5e9" stroke-width="1" stroke-opacity="0.5"/>
+  <text x="509" y="96" text-anchor="middle" font-family="monospace" font-size="18" fill="#0ea5e9">☁️</text>
+  <text x="509" y="116" text-anchor="middle" font-family="monospace" font-size="10" fill="#94a3b8">Cloud Solutions</text>
+
+  <!-- Floating card: AI -->
+  <rect x="12" y="80" width="108" height="56" rx="14" fill="#0c1a35" stroke="#a78bfa" stroke-width="1" stroke-opacity="0.5"/>
+  <text x="66" y="104" text-anchor="middle" font-family="monospace" font-size="18" fill="#a78bfa">🤖</text>
+  <text x="66" y="124" text-anchor="middle" font-family="monospace" font-size="10" fill="#94a3b8">AI &amp; Automation</text>
+
+  <!-- Floating card: Security -->
+  <rect x="455" y="220" width="118" height="56" rx="14" fill="#0c1a35" stroke="#4ade80" stroke-width="1" stroke-opacity="0.5"/>
+  <text x="514" y="244" text-anchor="middle" font-family="monospace" font-size="18" fill="#4ade80">🔒</text>
+  <text x="514" y="264" text-anchor="middle" font-family="monospace" font-size="10" fill="#94a3b8">Cybersecurity</text>
+
+  <!-- Floating card: Mobile -->
+  <rect x="12" y="220" width="108" height="56" rx="14" fill="#0c1a35" stroke="#fb923c" stroke-width="1" stroke-opacity="0.5"/>
+  <text x="66" y="244" text-anchor="middle" font-family="monospace" font-size="18" fill="#fb923c">📱</text>
+  <text x="66" y="264" text-anchor="middle" font-family="monospace" font-size="10" fill="#94a3b8">Mobile Apps</text>
+
+  <!-- Connector dots -->
+  <circle cx="120" cy="100" r="3.5" fill="#0ea5e9" opacity="0.5"/>
+  <circle cx="460" cy="100" r="3.5" fill="#0ea5e9" opacity="0.5"/>
+  <circle cx="120" cy="248" r="3.5" fill="#fb923c" opacity="0.5"/>
+  <circle cx="455" cy="248" r="3.5" fill="#4ade80" opacity="0.5"/>
+
+  <!-- Bottom glow line -->
+  <rect x="116" y="282" width="348" height="2" rx="1" fill="url(#glowBlue)" opacity="0.8"/>
+</svg>
