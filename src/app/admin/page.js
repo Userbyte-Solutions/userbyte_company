@@ -1,15 +1,15 @@
-import { store } from '@/lib/store'
+import { getContacts, getApplications } from '@/lib/store'
 import Link from 'next/link'
 
 export const dynamic = 'force-dynamic'
 
-export default function AdminDashboard() {
-  const totalContacts = store.contacts.length
-  const unreadContacts = store.contacts.filter((c) => !c.read).length
-  const totalApplications = store.applications.length
-  const pendingApplications = store.applications.filter((a) => a.status === 'pending').length
-  const recentContacts = store.contacts.slice(0, 5)
-  const recentApplications = store.applications.slice(0, 5)
+export default async function AdminDashboard() {
+  const [contacts, applications] = await Promise.all([getContacts(), getApplications()])
+
+  const unreadContacts = contacts.filter((c) => !c.read).length
+  const pendingApplications = applications.filter((a) => a.status === 'pending').length
+  const recentContacts = contacts.slice(0, 5)
+  const recentApplications = applications.slice(0, 5)
 
   return (
     <div className="p-8">
@@ -21,9 +21,9 @@ export default function AdminDashboard() {
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
         {[
-          { label: 'Total Messages', value: totalContacts, icon: '✉️', color: 'cyan', href: '/admin/contacts' },
+          { label: 'Total Messages', value: contacts.length, icon: '✉️', color: 'cyan', href: '/admin/contacts' },
           { label: 'Unread Messages', value: unreadContacts, icon: '🔔', color: 'indigo', href: '/admin/contacts' },
-          { label: 'Total Applications', value: totalApplications, icon: '👤', color: 'violet', href: '/admin/applications' },
+          { label: 'Total Applications', value: applications.length, icon: '👤', color: 'violet', href: '/admin/applications' },
           { label: 'Pending Applications', value: pendingApplications, icon: '⏳', color: 'cyan', href: '/admin/applications' },
         ].map((s) => {
           const colors = {

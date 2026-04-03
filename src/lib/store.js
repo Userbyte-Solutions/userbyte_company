@@ -1,30 +1,64 @@
-// In-memory store (resets on server restart)
-// Replace with a real DB (PostgreSQL, MongoDB) for production
+import { db } from './firebase'
+import {
+  collection,
+  addDoc,
+  getDocs,
+  doc,
+  updateDoc,
+  orderBy,
+  query,
+  serverTimestamp,
+} from 'firebase/firestore'
 
-export const store = {
-  contacts: [],
-  applications: [],
-};
+// ── Contacts ──────────────────────────────────────────
 
-export function addContact(data) {
-  store.contacts.unshift({ ...data, id: Date.now(), read: false, reply: null, createdAt: new Date().toISOString() });
+export async function addContact(data) {
+  await addDoc(collection(db, 'contacts'), {
+    ...data,
+    read: false,
+    reply: null,
+    createdAt: serverTimestamp(),
+  })
 }
 
-export function markContactRead(id) {
-  const c = store.contacts.find((c) => c.id === Number(id));
-  if (c) c.read = true;
+export async function getContacts() {
+  const q = query(collection(db, 'contacts'), orderBy('createdAt', 'desc'))
+  const snap = await getDocs(q)
+  return snap.docs.map((d) => ({
+    id: d.id,
+    ...d.data(),
+    createdAt: d.data().createdAt?.toDate?.()?.toISOString() ?? new Date().toISOString(),
+  }))
 }
 
-export function replyContact(id, reply) {
-  const c = store.contacts.find((c) => c.id === Number(id));
-  if (c) { c.reply = reply; c.read = true; }
+export async function markContactRead(id) {
+  await updateDoc(doc(db, 'contacts', id), { read: true })
 }
 
-export function addApplication(data) {
-  store.applications.unshift({ ...data, id: Date.now(), status: "pending", createdAt: new Date().toISOString() });
+export async function replyContact(id, reply) {
+  await updateDoc(doc(db, 'contacts', id), { reply, read: true })
 }
 
-export function updateApplicationStatus(id, status) {
-  const a = store.applications.find((a) => a.id === Number(id));
-  if (a) a.status = status;
+// ── Applications ──────────────────────────────────────
+
+export async function addApplication(data) {
+  await addDoc(collection(db, 'applications'), {
+    ...data,
+    status: 'pending',
+    createdAt: serverTimestamp(),
+  })
+}
+
+export async function getApplications() {
+  const q = query(collection(db, 'applications'), orderBy('createdAt', 'desc'))
+  const snap = await getDocs(q)
+  return snap.docs.map((d) => ({
+    id: d.id,
+    ...d.data(),
+    createdAt: d.data().createdAt?.toDate?.()?.toISOString() ?? new Date().toISOString(),
+  }))
+}
+
+export async function updateApplicationStatus(id, status) {
+  await updateDoc(doc(db, 'applications', id), { status })
 }

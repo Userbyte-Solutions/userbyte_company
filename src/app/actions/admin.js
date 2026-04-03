@@ -2,7 +2,13 @@
 
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
-import { addContact, addApplication, replyContact, updateApplicationStatus, markContactRead } from '@/lib/store'
+import {
+  addContact,
+  addApplication,
+  replyContact,
+  updateApplicationStatus,
+  markContactRead,
+} from '@/lib/store'
 
 const ADMIN_USER = 'admin'
 const ADMIN_PASS = 'userbyte@2025'
@@ -31,7 +37,7 @@ export async function logoutAction() {
 }
 
 export async function submitContactAction(prevState, formData) {
-  addContact({
+  await addContact({
     name: formData.get('name'),
     email: formData.get('email'),
     company: formData.get('company') || '',
@@ -42,19 +48,17 @@ export async function submitContactAction(prevState, formData) {
 }
 
 export async function replyContactAction(prevState, formData) {
-  const id = formData.get('id')
-  const reply = formData.get('reply')
-  replyContact(id, reply)
+  await replyContact(formData.get('id'), formData.get('reply'))
   return { success: true }
 }
 
 export async function markReadAction(prevState, formData) {
-  markContactRead(formData.get('id'))
+  await markContactRead(formData.get('id'))
   return { success: true }
 }
 
 export async function submitApplicationAction(prevState, formData) {
-  addApplication({
+  await addApplication({
     name: formData.get('name'),
     email: formData.get('email'),
     phone: formData.get('phone') || '',
@@ -66,6 +70,6 @@ export async function submitApplicationAction(prevState, formData) {
 }
 
 export async function updateAppStatusAction(prevState, formData) {
-  updateApplicationStatus(formData.get('id'), formData.get('status'))
+  await updateApplicationStatus(formData.get('id'), formData.get('status'))
   return { success: true }
 }
