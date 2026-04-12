@@ -48,7 +48,6 @@ export async function addApplication(data) {
     createdAt: serverTimestamp(),
   })
 }
-
 export async function getApplications() {
   const q = query(collection(db, 'applications'), orderBy('createdAt', 'desc'))
   const snap = await getDocs(q)

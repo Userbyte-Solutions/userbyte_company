@@ -65,6 +65,8 @@ export async function submitApplicationAction(prevState, formData) {
     position: formData.get('position'),
     experience: formData.get('experience') || '',
     message: formData.get('message') || '',
+    cvUrl: formData.get('cvUrl') || '',
+    cvName: formData.get('cvName') || '',
   })
   return { success: true }
 }
