@@ -2,8 +2,6 @@
 
 import { useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
-import { signInWithEmailAndPassword } from 'firebase/auth'
-import { auth } from '@/lib/firebase'
 import Image from 'next/image'
 
 export default function AdminLoginPage() {
@@ -26,40 +24,25 @@ export default function AdminLoginPage() {
     setError('')
 
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password)
-      const idToken = await userCredential.user.getIdToken()
-
       const res = await fetch('/api/admin/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ idToken }),
+        body: JSON.stringify({ email, password }),
       })
 
       const data = await res.json()
+
       if (data.success) {
         router.push('/admin')
         router.refresh()
       } else {
-        setError(data.error || 'Login failed')
+        setError(data.error || 'Invalid email or password')
       }
-    } catch (err) {
-      const code = err?.code || ''
-      if (code.includes('invalid-credential') || code.includes('wrong-password') || code.includes('user-not-found')) {
-        setError('Invalid email or password')
-      } else if (code.includes('too-many-requests')) {
-        setError('Too many attempts. Try again later.')
-      } else if (code.includes('network')) {
-        setError('Network error. Check your connection.')
-      } else {
-        setError('Login failed: ' + (err?.message || 'Unknown error'))
-      }
+    } catch {
+      setError('Connection error. Please try again.')
     } finally {
       setPending(false)
     }
-  }
-
-  function handleKeyDown(e) {
-    if (e.key === 'Enter') handleLogin()
   }
 
   return (
@@ -67,7 +50,6 @@ export default function AdminLoginPage() {
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-cyan-500/8 rounded-full blur-3xl" />
         <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-indigo-600/8 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 right-0 w-72 h-72 bg-violet-600/6 rounded-full blur-3xl" />
         <div className="absolute inset-0 opacity-[0.03]"
           style={{ backgroundImage: 'linear-gradient(#22d3ee 1px, transparent 1px), linear-gradient(90deg, #22d3ee 1px, transparent 1px)', backgroundSize: '50px 50px' }} />
       </div>
@@ -99,16 +81,16 @@ export default function AdminLoginPage() {
               <div className="relative">
                 <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                 </span>
                 <input
                   ref={emailRef}
                   type="email"
                   autoComplete="email"
-                  placeholder="admin@userbyte.com"
-                  onKeyDown={handleKeyDown}
-                  className="w-full bg-[#060d1f] border border-slate-700 text-slate-200 placeholder-slate-600 rounded-xl pl-10 pr-4 py-3 text-sm focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/20 transition-all"
+                  placeholder="Enter admin email"
+                  onKeyDown={(e) => e.key === 'Enter' && handleLogin()}
+                  className="w-full bg-[#060d1f] border border-slate-700 text-slate-200 placeholder-slate-600 rounded-xl pl-10 pr-4 py-3 text-sm focus:outline-none focus:border-cyan-500 transition-all"
                 />
               </div>
             </div>
@@ -125,9 +107,9 @@ export default function AdminLoginPage() {
                   ref={passwordRef}
                   type="password"
                   autoComplete="current-password"
-                  placeholder="Enter your password"
-                  onKeyDown={handleKeyDown}
-                  className="w-full bg-[#060d1f] border border-slate-700 text-slate-200 placeholder-slate-600 rounded-xl pl-10 pr-4 py-3 text-sm focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/20 transition-all"
+                  placeholder="Enter password"
+                  onKeyDown={(e) => e.key === 'Enter' && handleLogin()}
+                  className="w-full bg-[#060d1f] border border-slate-700 text-slate-200 placeholder-slate-600 rounded-xl pl-10 pr-4 py-3 text-sm focus:outline-none focus:border-cyan-500 transition-all"
                 />
               </div>
             </div>
@@ -136,7 +118,7 @@ export default function AdminLoginPage() {
               type="button"
               onClick={handleLogin}
               disabled={pending}
-              className="mt-1 w-full py-3.5 bg-gradient-to-r from-cyan-500 to-indigo-500 text-white font-semibold rounded-xl hover:opacity-90 active:scale-[0.98] transition-all disabled:opacity-60 flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20"
+              className="mt-1 w-full py-3.5 bg-gradient-to-r from-cyan-500 to-indigo-500 text-white font-semibold rounded-xl hover:opacity-90 transition-all disabled:opacity-60 flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20"
             >
               {pending ? (
                 <>
