@@ -1,12 +1,46 @@
 'use client'
 
-import { useActionState } from 'react'
-import { submitContactAction } from '@/app/actions/admin'
-
-const initialState = null
+import { useState, useRef } from 'react'
 
 export default function ContactForm() {
-  const [state, formAction, pending] = useActionState(submitContactAction, initialState)
+  const [state, setState] = useState(null)
+  const [pending, setPending] = useState(false)
+  const [error, setError] = useState('')
+  const formRef = useRef(null)
+
+  async function handleSubmit(e) {
+    e.preventDefault()
+    setPending(true)
+    setError('')
+
+    const formData = new FormData(e.target)
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.get('name'),
+          email: formData.get('email'),
+          company: formData.get('company') || '',
+          service: formData.get('service') || '',
+          message: formData.get('message'),
+        }),
+      })
+
+      const data = await res.json()
+      if (data.success) {
+        setState({ success: true })
+        formRef.current?.reset()
+      } else {
+        setError(data.error || 'Failed to send message')
+      }
+    } catch {
+      setError('Connection error. Please try again.')
+    } finally {
+      setPending(false)
+    }
+  }
 
   if (state?.success) {
     return (
@@ -19,7 +53,12 @@ export default function ContactForm() {
   }
 
   return (
-    <form action={formAction} className="flex flex-col gap-4">
+    <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-4">
+      {error && (
+        <div className="bg-red-500/10 border border-red-500/30 rounded-xl px-4 py-3 text-red-400 text-sm">
+          ⚠ {error}
+        </div>
+      )}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <input name="name" type="text" placeholder="Your Name" required
           className="bg-[#0d1630] border border-slate-700 text-slate-200 placeholder-slate-500 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-cyan-500 transition-colors" />

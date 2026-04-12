@@ -3,7 +3,6 @@
 import { useState, useRef } from 'react'
 import { storage } from '@/lib/firebase'
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
-import { submitApplicationAction } from '@/app/actions/admin'
 
 const ACCEPTED = '.pdf,.doc,.docx'
 const MAX_MB = 5
@@ -61,10 +60,22 @@ export default function ApplyForm({ position }) {
 
     try {
       const cvUrl = await uploadCV()
-      const formData = new FormData(e.target)
-      formData.set('cvUrl', cvUrl)
-      formData.set('cvName', cvFile.name)
-      const result = await submitApplicationAction(null, formData)
+
+      const res = await fetch('/api/apply', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.get('name'),
+          email: formData.get('email'),
+          phone: formData.get('phone') || '',
+          position: formData.get('position'),
+          experience: formData.get('experience') || '',
+          message: formData.get('message') || '',
+          cvUrl,
+          cvName: cvFile.name,
+        }),
+      })
+      const result = await res.json()
       setState(result)
     } catch {
       setCvError('CV upload failed. Please try again.')
