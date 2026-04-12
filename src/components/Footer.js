@@ -63,7 +63,7 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="border-t border-slate-800 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-sm">
-          <p>© {new Date().getFullYear()} <span className="text-white font-semibold">UserByte Solution</span>. All rights reserved.</p>
+          <p>© 2025 <span className="text-white font-semibold">UserByte Solution</span>. All rights reserved.</p>
           <div className="flex gap-6">
             <a href="#" className="hover:text-cyan-400 transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-cyan-400 transition-colors">Terms of Service</a>

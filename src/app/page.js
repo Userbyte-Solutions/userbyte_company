@@ -43,7 +43,7 @@ const techStack = [
     category: "Software Development",
     icon: "💻",
     color: "indigo",
-    tools: ["React", "Next.js", "Node.js", "Python", "Flutter", "PostgreSQL", "MongoDB", "Redis", "Docker", "AWS", "Git", "Figma"],
+    tools: ["React", "Next.js", "Node.js", "Python", "Flutter", "PostgreSQL", "MongoDB", "Redis", "Docker", "AWS", "Git", "Figma","php","wordpress","laravel","django"],
   },
 ];
 

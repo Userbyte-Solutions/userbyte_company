@@ -4,7 +4,14 @@ import Link from 'next/link'
 export const dynamic = 'force-dynamic'
 
 export default async function AdminDashboard() {
-  const [contacts, applications] = await Promise.all([getContacts(), getApplications()])
+  let contacts = []
+  let applications = []
+
+  try {
+    ;[contacts, applications] = await Promise.all([getContacts(), getApplications()])
+  } catch (err) {
+    console.error('Firestore fetch error:', err)
+  }
 
   const unreadContacts = contacts.filter((c) => !c.read).length
   const pendingApplications = applications.filter((a) => a.status === 'pending').length

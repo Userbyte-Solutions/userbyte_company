@@ -33,7 +33,7 @@ export async function loginAction(prevState, formData) {
 export async function logoutAction() {
   const cookieStore = await cookies()
   cookieStore.delete('admin_session')
-  redirect('/admin/login')
+  redirect('/login')
 }
 
 export async function submitContactAction(prevState, formData) {

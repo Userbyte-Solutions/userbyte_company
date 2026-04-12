@@ -1,9 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import Image from 'next/image'
-import { logoutAction } from '@/app/actions/admin'
 
 const navItems = [
   { href: '/admin', label: 'Dashboard', icon: '📊' },
@@ -13,6 +12,14 @@ const navItems = [
 
 export default function AdminSidebar() {
   const pathname = usePathname()
+  const router = useRouter()
+
+  async function handleLogout() {
+    await fetch('/api/admin/logout', { method: 'POST' })
+    router.push('/login')
+    router.refresh()
+  }
+
   return (
     <aside className="w-64 shrink-0 bg-[#040912] border-r border-slate-800 flex flex-col min-h-screen">
       <div className="px-6 py-5 border-b border-slate-800">
@@ -41,14 +48,12 @@ export default function AdminSidebar() {
       </nav>
 
       <div className="px-3 py-4 border-t border-slate-800">
-        <form action={logoutAction}>
-          <button
-            type="submit"
-            className="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-400 hover:text-red-400 hover:bg-red-500/10 transition-colors"
-          >
-            <span>🚪</span> Logout
-          </button>
-        </form>
+        <button
+          onClick={handleLogout}
+          className="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-400 hover:text-red-400 hover:bg-red-500/10 transition-colors"
+        >
+          <span>🚪</span> Logout
+        </button>
       </div>
     </aside>
   )
