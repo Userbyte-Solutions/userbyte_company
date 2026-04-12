@@ -5,10 +5,13 @@ export async function POST(request) {
   try {
     const { email, password } = await request.json()
 
-    const adminEmail = process.env.ADMIN_EMAIL
-    const adminPassword = process.env.ADMIN_PASSWORD
+    const adminEmail = process.env.ADMIN_EMAIL || 'admin@userbyte.com'
+    const adminPassword = process.env.ADMIN_PASSWORD || 'Admin@2025'
 
-    if (email === adminEmail && password === adminPassword) {
+    if (
+      email?.trim().toLowerCase() === adminEmail.toLowerCase() &&
+      password === adminPassword
+    ) {
       const cookieStore = await cookies()
       cookieStore.set('admin_session', 'authenticated', {
         httpOnly: true,
