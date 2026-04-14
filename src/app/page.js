@@ -247,9 +247,9 @@ export default function Home() {
             <h2 className="text-3xl md:text-4xl font-bold text-white mt-2 mb-4">Contact Us</h2>
             <p className="text-slate-400 leading-relaxed mb-8">Have a project in mind? We&apos;d love to hear from you. Fill out the form and we&apos;ll get back to you within 24 hours.</p>
             <ul className="flex flex-col gap-4 text-sm text-slate-400">
-              <li className="flex items-center gap-3"><span className="text-cyan-400 text-lg">📧</span> abdullahalmahmudmahmud777@gmail.com</li>
-              <li className="flex items-center gap-3"><span className="text-cyan-400 text-lg">📞</span> +880 1617-681926</li>
-              <li className="flex items-center gap-3"><span className="text-cyan-400 text-lg">📍</span> Dhaka, Bangladesh</li>
+              <li className="flex items-center gap-3"><span className="text-cyan-400 text-lg">📧</span> info.userbyte@gmail.com</li>
+              <li className="flex items-center gap-3"><span className="text-cyan-400 text-lg">📞</span>+8801848235924</li>
+              <li className="flex items-center gap-3"><span className="text-cyan-400 text-lg">📍</span> Rajshahi, Bangladesh</li>
               <li className="flex items-center gap-3"><span className="text-cyan-400 text-lg">🕐</span> Mon–Fri, 9am–6pm BST</li>
             </ul>
           </div>
