@@ -53,7 +53,7 @@ export default function Footer() {
           <div>
             <p className="text-white font-semibold mb-4 text-sm uppercase tracking-widest">Contact</p>
             <ul className="flex flex-col gap-3 text-sm text-slate-500">
-              <li className="flex items-start gap-2"><span>📧</span> abdullahalmahmudmahmud777@gmail.com</li>
+              <li className="flex items-start gap-2"><span>📧</span> info.userbyte@gmail.com</li>
               <li className="flex items-start gap-2"><span>📞</span> +880 1617-681926</li>
               <li className="flex items-start gap-2"><span>📍</span> Dhaka, Bangladesh</li>
               <li className="flex items-start gap-2"><span>🕐</span> Mon–Fri, 9am–6pm BST</li>
