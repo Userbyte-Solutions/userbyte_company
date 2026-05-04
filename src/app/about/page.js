@@ -6,7 +6,7 @@ const team = [
   { name: "Abdullah AL Mahmud", role: "CEO & Founder", bio: "Visionary leader driving innovation and growth at UserByte Solution with a passion for impactful technology.", avatar: "AM" },
   { name: "Tohidur Rahman", role: "Senior Developer", bio: "Experienced full-stack engineer building robust, scalable systems with precision and expertise.", avatar: "TR" },
   { name: "Maruf Hossain", role: "Developer", bio: "Dedicated developer crafting clean, efficient code and delivering high-quality software solutions.", avatar: "MH" },
-  { name: "Sabbir Rahman", role: "Developer", bio: "Creative problem-solver focused on building responsive, user-friendly web and mobile applications.", avatar: "SR" },
+  { name: "Sazid Ahamed Sifat", role: "Team Leader", bio: "Creative problem-solver focused on building responsive, user-friendly web and mobile applications.", avatar: "SR" },
   { name: "Shamiul Islam", role: "Project Manager", bio: "Organized and detail-oriented PM ensuring projects are delivered on time and exceed client expectations.", avatar: "SI" },
   { name: "Rashidul Islam", role: "Technical Adviser", bio: "Strategic technology advisor guiding architectural decisions and best practices across all projects.", avatar: "RI" },
 ];
